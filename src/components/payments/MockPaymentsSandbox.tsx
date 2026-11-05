@@ -210,7 +210,6 @@ const MockPaymentsSandbox = ({ userId }: MockPaymentsSandboxProps) => {
         status: "completed",
         description: `Mock escrow released (order ${String(escrow.order_id).slice(0, 8)})`,
         reference_id: escrow.order_id,
-        escrow_id: escrowId,
       });
       if (sellerTxErr) throw sellerTxErr;
 
@@ -255,7 +254,6 @@ const MockPaymentsSandbox = ({ userId }: MockPaymentsSandboxProps) => {
         status: "completed",
         description: `Mock escrow refund (order ${String(escrow.order_id).slice(0, 8)})`,
         reference_id: escrow.order_id,
-        escrow_id: escrowId,
       });
       if (buyerTxErr) throw buyerTxErr;
 
