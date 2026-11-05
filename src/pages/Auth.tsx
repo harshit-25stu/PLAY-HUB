@@ -39,11 +39,11 @@ const Auth = () => {
         return;
       }
 
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/`,
+          emailRedirectTo: `${window.location.origin}/dashboard`,
           data: {
             username,
             display_name: username,
@@ -55,9 +55,11 @@ const Auth = () => {
 
       toast({
         title: "Welcome to PlayHub!",
-        description: "Your account has been created successfully",
+        description: data.session
+          ? "Your account has been created successfully"
+          : "Your account is ready. Check your email to confirm it, then sign in.",
       });
-      navigate("/");
+      if (data.session) navigate("/dashboard");
     } catch (error: any) {
       toast({
         title: "Sign up failed",
@@ -95,7 +97,7 @@ const Auth = () => {
         title: "Welcome back!",
         description: "You've successfully signed in",
       });
-      navigate("/");
+      navigate("/dashboard");
     } catch (error: any) {
       toast({
         title: "Sign in failed",
